@@ -33,6 +33,10 @@ class SeparateChaining
     nil
   end
 
+  def empty?
+    size.zero?
+  end
+
   private
 
   def hash(key)

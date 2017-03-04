@@ -61,4 +61,15 @@ describe SeparateChaining do
       expect(subject.size).to eq(3)
     end
   end
+
+  describe '.empty?' do
+    it 'returns true if hash is empty' do
+      expect(subject).to be_empty
+    end
+
+    it 'returns false if hash is not empty' do
+      subject['key'] = 'value'
+      expect(subject).to_not be_empty
+    end
+  end
 end
