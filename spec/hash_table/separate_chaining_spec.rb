@@ -36,11 +36,12 @@ describe SeparateChaining do
       expect(subject['no-key']).to be_nil
     end
 
-    xit 'collision' do
+    it 'no collision' do
       sc_hash = SeparateChaining.new(1);
       sc_hash[:key1] = 'value1'
       sc_hash[:key2] = 'value2'
       expect(sc_hash[:key1]).to eq('value1')
+      expect(sc_hash[:key2]).to eq('value2')
     end
   end
 end
