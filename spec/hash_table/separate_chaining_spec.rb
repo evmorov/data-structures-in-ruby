@@ -50,4 +50,15 @@ describe SeparateChaining do
       expect(subject[:key]).to eq('another value')
     end
   end
+
+  describe '.size' do
+    it 'when just created size is 0' do
+      expect(subject.size).to be_zero
+    end
+
+    it 'returns the number of pairs' do
+      3.times { |n| subject[n] = n }
+      expect(subject.size).to eq(3)
+    end
+  end
 end

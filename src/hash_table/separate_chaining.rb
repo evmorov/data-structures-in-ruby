@@ -1,8 +1,11 @@
 class SeparateChaining
+  attr_reader :size
+
   Node = Struct.new(:key, :value, :next)
 
   def initialize(slots_count = 97)
     @slots_count = slots_count
+    @size = 0
     @slots = []
   end
 
@@ -16,6 +19,7 @@ class SeparateChaining
       end
       node = node.next
     end
+    @size += 1
     @slots[slot_index] = Node.new(key, value, @slots[slot_index])
   end
 
