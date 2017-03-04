@@ -33,6 +33,22 @@ class SeparateChaining
     nil
   end
 
+  def delete(key)
+    slot_index = hash(key)
+    node = @slots[slot_index]
+    node_prev = nil
+    while node
+      if node.key == key
+        @size -= 1
+        node_prev ? node_prev[:next] = node.next : @slots[slot_index] = node.next
+        return node.value
+      end
+      node_prev = node
+      node = node.next
+    end
+    nil
+  end
+
   def empty?
     size.zero?
   end
