@@ -9,21 +9,20 @@ class SeparateChaining
   def []=(key, value)
     slot_index = hash(key)
     node = @slots[slot_index]
-    while (node)
+    while node
       if node.key == key
         node.key = key
         return
       end
       node = node.next
     end
-
     @slots[slot_index] = Node.new(key, value, @slots[slot_index])
   end
 
   def [](key)
     slot_index = hash(key)
     node = @slots[slot_index]
-    while (node)
+    while node
       return node.value if node.key == key
       node = node.next
     end
