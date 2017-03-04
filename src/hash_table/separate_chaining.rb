@@ -11,7 +11,7 @@ class SeparateChaining
     node = @slots[slot_index]
     while node
       if node.key == key
-        node.key = key
+        node.value = value
         return
       end
       node = node.next

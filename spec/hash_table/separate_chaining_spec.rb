@@ -43,5 +43,11 @@ describe SeparateChaining do
       expect(sc_hash[:key1]).to eq('value1')
       expect(sc_hash[:key2]).to eq('value2')
     end
+
+    it 'assign another value with the same key' do
+      subject[:key] = 'value'
+      subject[:key] = 'another value'
+      expect(subject[:key]).to eq('another value')
+    end
   end
 end
