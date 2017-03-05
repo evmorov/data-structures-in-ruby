@@ -5,14 +5,12 @@ describe SeparateChaining do
   describe '.initialize' do
     it 'has 97 slots if not set explicitly' do
       1000.times { |n| subject[n] = n }
-
       expect(subject.instance_variable_get(:@slots).size).to eq(97)
     end
 
     it 'has number of slots that is sent to constructor' do
       sc_hash = SeparateChaining.new(1)
       1000.times { |n| sc_hash[n] = n }
-
       expect(sc_hash.instance_variable_get(:@slots).size).to eq(1)
     end
   end
@@ -20,20 +18,17 @@ describe SeparateChaining do
   describe '#[] and #[]=' do
     it 'key is String' do
       subject['key'] = 'value'
-
       expect(subject['key']).to eq('value')
     end
 
     it 'key is Symbol' do
       subject[:key] = 'value'
-
       expect(subject[:key]).to eq('value')
     end
 
     it 'key is any object' do
       obj = Class.new
       subject[obj] = 'value'
-
       expect(subject[obj]).to eq('value')
     end
 
@@ -44,14 +39,12 @@ describe SeparateChaining do
     it 'no collision' do
       sc_hash = SeparateChaining.new(1)
       3.times { |n| sc_hash["key#{n}"] = "value#{n}" }
-
       3.times { |n| expect(sc_hash["key#{n}"]).to eq("value#{n}") }
     end
 
     it 'assign another value with the same key' do
       subject[:key] = 'value'
       subject[:key] = 'another value'
-
       expect(subject[:key]).to eq('another value')
     end
 
@@ -73,20 +66,17 @@ describe SeparateChaining do
     it 'deletes a pair' do
       subject['key'] = 'value'
       subject.delete('key')
-
       expect(subject['key']).to be_nil
     end
 
     it 'returns the removed value' do
       subject['key'] = 'value'
-
       expect(subject.delete('key')).to eq('value')
     end
 
     it "doesn't change size if there is no such key" do
       subject['key'] = 'value'
       subject.delete('no-key')
-
       expect(subject.size).to eq(1)
     end
 
@@ -103,7 +93,6 @@ describe SeparateChaining do
 
       it 'deletes the first node in a slot' do
         subject.delete('key1')
-
         expect(subject['key1']).to be_nil
         expect(subject['key2']).to eq('value2')
         expect(subject['key3']).to eq('value3')
@@ -111,7 +100,6 @@ describe SeparateChaining do
 
       it 'deletes a middle node in a slot' do
         subject.delete('key2')
-
         expect(subject['key1']).to eq('value1')
         expect(subject['key2']).to be_nil
         expect(subject['key3']).to eq('value3')
@@ -119,7 +107,6 @@ describe SeparateChaining do
 
       it 'deletes the last node in a slot' do
         subject.delete('key3')
-
         expect(subject['key1']).to eq('value1')
         expect(subject['key2']).to eq('value2')
         expect(subject['key3']).to be_nil
@@ -134,7 +121,6 @@ describe SeparateChaining do
 
     it 'returns the number of pairs' do
       3.times { |n| subject[n] = n }
-
       expect(subject.size).to eq(3)
     end
   end
@@ -146,7 +132,6 @@ describe SeparateChaining do
 
     it 'returns false if hash is not empty' do
       subject['key'] = 'value'
-
       expect(subject).to_not be_empty
     end
   end
