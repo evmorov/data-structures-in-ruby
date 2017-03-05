@@ -42,7 +42,7 @@ describe SeparateChaining do
     end
 
     it 'no collision' do
-      sc_hash = SeparateChaining.new(1);
+      sc_hash = SeparateChaining.new(1)
       3.times { |n| sc_hash["key#{n}"] = "value#{n}" }
 
       3.times { |n| expect(sc_hash["key#{n}"]).to eq("value#{n}") }
@@ -70,9 +70,16 @@ describe SeparateChaining do
       expect(subject.delete('key')).to eq('value')
     end
 
+    it "doesn't change size if there is no such key" do
+      subject['key'] = 'value'
+      subject.delete('no-key')
+
+      expect(subject.size).to eq(1)
+    end
+
     context 'when there was a collision' do
       subject do
-        SeparateChaining.new(1);
+        SeparateChaining.new(1)
       end
 
       before do

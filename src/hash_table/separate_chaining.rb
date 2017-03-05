@@ -10,43 +10,27 @@ class SeparateChaining
   end
 
   def []=(key, value)
-    slot_index = hash(key)
-    node = @slots[slot_index]
-    while node
-      if node.key == key
-        node.value = value
-        return
-      end
-      node = node.next
+    node = find_node(key)
+    if node
+      node.value = value
+    else
+      @size += 1
+      slot_index = find_slot_index(key)
+      @slots[slot_index] = Node.new(key, value, @slots[slot_index])
     end
-    @size += 1
-    @slots[slot_index] = Node.new(key, value, @slots[slot_index])
   end
 
   def [](key)
-    slot_index = hash(key)
-    node = @slots[slot_index]
-    while node
-      return node.value if node.key == key
-      node = node.next
-    end
-    nil
+    node = find_node(key)
+    node.value if node
   end
 
   def delete(key)
-    slot_index = hash(key)
-    node = @slots[slot_index]
-    node_prev = nil
-    while node
-      if node.key == key
-        @size -= 1
-        node_prev ? node_prev[:next] = node.next : @slots[slot_index] = node.next
-        return node.value
-      end
-      node_prev = node
-      node = node.next
+    find_node(key) do |node, node_prev|
+      @size -= 1
+      node_prev ? (node_prev[:next] = node.next) : (@slots[find_slot_index(key)] = node.next)
+      node.value
     end
-    nil
   end
 
   def empty?
@@ -55,7 +39,18 @@ class SeparateChaining
 
   private
 
-  def hash(key)
+  def find_node(key, &block)
+    slot_index = find_slot_index(key)
+    node = @slots[slot_index]
+    node_prev = nil
+    while node
+      return (block ? yield(node, node_prev) : node) if node.key == key
+      node_prev = node
+      node = node.next
+    end
+  end
+
+  def find_slot_index(key)
     key.hash.abs % @slots_count
   end
 end
