@@ -54,6 +54,19 @@ describe SeparateChaining do
 
       expect(subject[:key]).to eq('another value')
     end
+
+    it "setting value = nil doesn't take a slot" do
+      sc_hash = SeparateChaining.new(1)
+      sc_hash[:key] = nil
+      expect(sc_hash.instance_variable_get(:@slots).size).to eq(0)
+    end
+
+    it 'setting value = nil deletes a pair' do
+      sc_hash = SeparateChaining.new(1)
+      sc_hash[:key] = 'value'
+      sc_hash[:key] = nil
+      expect(sc_hash.instance_variable_get(:@slots).first).to be_nil
+    end
   end
 
   describe '#delete' do

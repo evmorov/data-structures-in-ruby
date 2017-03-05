@@ -10,6 +10,11 @@ class SeparateChaining
   end
 
   def []=(key, value)
+    if value.nil?
+      delete(key)
+      return
+    end
+
     node = find_node(key)
     if node
       node.value = value
@@ -21,7 +26,8 @@ class SeparateChaining
   end
 
   def [](key)
-    find_node(key)&.value
+    node = find_node(key)
+    find_node(key).value if node
   end
 
   def delete(key)
