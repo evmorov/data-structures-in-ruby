@@ -21,8 +21,7 @@ class SeparateChaining
   end
 
   def [](key)
-    node = find_node(key)
-    node.value if node
+    find_node(key)&.value
   end
 
   def delete(key)
