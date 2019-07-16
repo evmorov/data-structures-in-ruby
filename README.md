@@ -34,6 +34,8 @@ false
 2
 > hsh[:b] = 222
 222
+> hsh.size
+2
 > hsh[:a]
 1
 > hsh[:b]
