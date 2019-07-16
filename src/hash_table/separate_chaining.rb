@@ -10,7 +10,7 @@ class SeparateChaining
   end
 
   def []=(key, value)
-    if value.nil?
+    unless value
       delete(key)
       return
     end
