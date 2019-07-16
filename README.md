@@ -40,6 +40,8 @@ false
 1
 > hsh[:b]
 222
+> hsh[:c]
+nil
 > hsh.delete(:b)
 222
 > hsh.delete(:a)
