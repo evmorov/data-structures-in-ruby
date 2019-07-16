@@ -16,9 +16,7 @@ Names of the structure:
 - in Python, it's called `Dictionary`
 - in JavaScript, it's called `Object Literals`
 
-### Separate Chaining
-
-#### Usage example
+### Usage example
 
 ```
 > irb
