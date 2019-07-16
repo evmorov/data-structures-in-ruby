@@ -16,6 +16,36 @@ Names of the structure:
 - in Python, it's called `Dictionary`
 - in JavaScript, it's called `Object Literals`
 
+### Usage example
+
+```
+> irb
+> load 'src/hash_table/separate_chaining.rb'
+true
+> hsh = SeparateChaining.new
+#<SeparateChaining:0x00007fd1d50decc0 @slots_count=97, @size=0, @slots=[]>
+> hsh.empty?
+true
+> hsh[:a] = 1
+1
+> hsh.empty?
+false
+> hsh[:b] = 2
+2
+> hsh[:b] = 222
+222
+> hsh[:a]
+1
+> hsh[:b]
+222
+> hsh.delete(:b)
+222
+> hsh.delete(:a)
+1
+> hsh.empty?
+true
+```
+
 ### Resources
 
 - [Algorithms by Robert Sedgewick and Kevin Wayne - Hash Tables](http://algs4.cs.princeton.edu/34hash/)
